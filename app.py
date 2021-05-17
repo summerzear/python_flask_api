@@ -7,11 +7,11 @@ from time import time
 from sqlalchemy import desc, or_
 from configs.exts import *
 from flask import jsonify, request, make_response
-from sqlalchemy.orm import aliased
 from flask_cors import CORS
 from configs.auth_list import *
 from utils.token_auth import generate_token, get_role_auth, get_info
 from utils.trans_time import timestampToTime
+from gevent import pywsgi
 
 CORS(app)  # 实例化跨域对象，解决跨域问题
 
@@ -366,7 +366,6 @@ def delete_case():
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=5000, debug=False)
-    from gevent import pywsgi
 
     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
     server.serve_forever()
